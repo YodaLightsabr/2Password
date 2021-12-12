@@ -1,0 +1,21 @@
+{
+  "name": "2password",
+  "version": "1.0.0",
+  "description": "Zero-dependency local password manager",
+  "main": "pwd.js",
+  "scripts": {
+    "test": "./pwd.js"
+  },
+  "keywords": [
+    "pwd",
+    "2password",
+    "password-manager",
+    "passwords"
+  ],
+  "bin": {
+    "2password": "./pwd.js"
+  },
+  "author": "YodaLightsabr",
+  "license": "MIT",
+  "type": "module"
+}
