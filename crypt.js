@@ -45,3 +45,48 @@ export const displayKey = (input) => {
 export const normalizeKey = (input) => {
     return input.toLowerCase().split('-').join('');
 }
+
+export class Safe {
+	constructor (key, password) {
+		this.key = key;
+		this.password = password;
+	}
+
+	static fromDisplay (display, password) {
+		return new Safe(normalizeKey(display), password);
+	}
+
+	get hash () {
+		return hash(this.key, this.password);
+	}
+
+	set hash (value) {
+		if (value !== hash(this.key, this.password)) throw new Error('Cannot set hash that does not match key and password.')
+	}
+
+	get displayKey () {
+		return displayKey(this.key);
+	}
+
+	set displayKey (key) {
+		this.key = normalizeKey(key);
+	}
+
+	encrypt (text) {
+		return encrypt(text, this.hash);
+	}
+
+	decrypt (text) {
+		return decrypt(text, this.hash);
+	}
+
+	static generateKey () {
+		return keygen();
+	}
+
+	static fromDummy () {
+		return new Safe(Safe.generateKey(), '123456');
+	}
+}
+
+export default Safe;
